@@ -7,6 +7,9 @@
 #include "estruturas.h"
 #include "pre_processador.h"
 
+//A função de ligação, provavelmente, é mais interessante receber um vetor com os nomes e o número de argumentos
+//já que deve trabalhar com os arquivos em conjunto
+
 int main (int argc, char **argv){
 	//printf("Digite o nome do código fonte a ser lido (sem extensao .asm): ");
 
