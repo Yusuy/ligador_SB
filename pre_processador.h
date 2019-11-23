@@ -161,7 +161,7 @@ std::vector<std::string> directive_placer(std::vector<std::string> code_vector){
 				flag = 0;
 			}
 			else{
-				std::cout << "\nERRO SEMANTICO: DIRETIVA " << auxi << " NAO DECLARADA NA LINHA " << line << " DO CODIGO FONTE\n";
+				//std::cout << "\nERRO SEMANTICO: DIRETIVA " << auxi << " NAO DECLARADA NA LINHA " << line << " DO CODIGO FONTE\n";
 				line +=1;
 			};
 		}
@@ -178,7 +178,7 @@ std::vector<std::string> directive_placer(std::vector<std::string> code_vector){
 			}
 			else{
 				output_code.push_back(code_vector[i]);
-				std::cout << "\nERRO SEMANTICO: DIRETIVA " << code_vector[i] << " NAO DECLARADA NA LINHA " << line << " DO CODIGO FONTE\n";
+				//std::cout << "\nERRO SEMANTICO: DIRETIVA " << code_vector[i] << " NAO DECLARADA NA LINHA " << line << " DO CODIGO FONTE\n";
 			}
 			i++;
 		}

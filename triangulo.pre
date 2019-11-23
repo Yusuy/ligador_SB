@@ -1,0 +1,20 @@
+SECTION TEXT 
+ INPUT B 
+ COPY A , B 
+ COPY G , H + 1 
+ COPY 1 , X 
+ INPUT H 
+ COPY K ,  A + 12312 
+ LOAD B 
+ COPY A , B + 0 
+ MULT H 
+ DIV DOIS 
+ STORE R 
+ OUTPUT R 
+ STOP 
+ SECTION DATA 
+ B: SPACE 
+ H: SPACE 
+ R: SPACE 
+ DOIS: CONST 2 
+ 
