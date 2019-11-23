@@ -1,5 +1,5 @@
 ;CALCULADORA NASM
-;cd /home/victor/Desktop/calc
+;cd /home/victor//github/ligador_SB
 ;nasm -f elf calculadora.asm
 ;ld -m elf_i386 -s -o calculadora calculadora.o
 ;./calculadora
@@ -13,23 +13,29 @@ int 0x80
 %endmacro
 
 section  .data
-hello1 db "Olá, como você se chama?", 0x0D, 0x0A
-size1 EQU $-hello1
-hello2 db "Bem-vindo ao programa de CALC IA-32, "
-size2 EQU $-hello2
-menu db "ESCOLHA UMA OPÇÃO:", 0x0D, 0x0A, "-1: SOMA", 0x0D, 0x0A, "-2: SUBTRAÇÃO", 0x0D, 0x0A, "-3: MULTIPLICAÇÃO", 0x0D, 0x0A, "-4: DIVISÃO", 0x0D, 0x0A, "-5: MOD", 0x0D, 0x0A, "-6: SAIR", 0x0D, 0x0A
-sizemenu EQU $-menu
-endl db 0x0D, 0x0A
-msg1 db "Nome: "
-msg1size EQU $-msg1
-msg2 db "Opção escolhida: "
-msg2size EQU $-msg2
-msg3 db "Opção inválida, tente novamente.", 0x0D, 0x0A, 0x0D, 0x0A
-msg3size EQU $-msg3
+endl db 0x0a, 0x0d
+
+ask_name db "Por favor, digite seu nome: "
+ask_name_size EQU $-ask_name
+
+hello_part_1 db "Olá, "
+hello_part_1_size EQU $-hello_part_1
+
+hello_part_2 db "Bem-vindo ao programa de CALC IA-32", 0x0a, 0x0d
+hello_part_2_size EQU $-hello_part_2
+
+menu db "ESCOLHA UMA OPÇÃO:", 0X0a, 0x0d, "1 - SOMA", 0X0a, 0x0d, "2 - SUBTRAÇÃO", 0X0a, 0x0d, "3 - MULTIPLICAÇÃO", 0X0a, 0x0d, "4 - DIVISÃO", 0X0a, 0x0d, "5 - MOD" , 0X0a, 0x0d, "6 - SAIR", 0X0a, 0x0d
+menu_size EQU $-menu
+
+menu_choice db "Opção escolhida: "
+menu_choice_size EQU $-menu_choice
+
+not_a_choice db "Opção inválida, digite uma opção válida", 0x0a, 0x0d
+not_a_choice_size EQU $-not_a_choice
 
 section .bss
-name resb 32
-namesize EQU $-name
+name resb 64
+name_size EQU $-name
 num1 resb 4
 num2 resb 4
 cmd resb 1
@@ -39,56 +45,54 @@ global _start:
 _start:
 jump_line
 
-;print hello_msg_1
+;print ask_name
 mov eax, 4
 mov ebx, 1
-mov ecx, hello1
-mov edx, size1
-int 0x80
-
-;print msg_1
-mov eax, 4
-mov ebx, 1
-mov ecx, msg1
-mov edx, msg1size
+mov ecx, ask_name
+mov edx, ask_name_size
 int 0x80
 
 ;read name
 mov eax, 3
 mov ebx, 0
 mov ecx, name
-mov edx, namesize
+mov edx, name_size
 int 0x80
 
-;print hello2
+jump_line
+
+;print hello_part_1
 mov eax, 4
 mov ebx, 1
-mov ecx, hello2
-mov edx, size2
+mov ecx, hello_part_1
+mov edx, hello_part_1_size
 int 0x80
 
 ;print name
 mov eax, 4
 mov ebx, 1
 mov ecx, name
-mov edx, namesize
 int 0x80
 
-jump_line
+;print hello_part_2
+mov eax, 4
+mov ebx, 1
+mov ecx, hello_part_2
+mov edx, hello_part_2_size
+int 0x80
 
-;print menu
+print_menu:
 mov eax, 4
 mov ebx, 1
 mov ecx, menu
-mov edx, sizemenu
+mov edx, menu_size
 int 0x80
 
-menumsg:
-;print msg2
+;print menu_choice
 mov eax, 4
 mov ebx, 1
-mov ecx, msg2
-mov edx, msg2size
+mov ecx, menu_choice
+mov edx, menu_choice_size
 int 0x80
 
 ;read cmd
@@ -98,56 +102,55 @@ mov ecx, cmd
 mov edx, 1
 int 0x80
 
-sub eax, eax
-;mov eax, [cmd] ;movendo pra eax o valor no endereço de cmd
-;sub eax, 0x30  ;transformando em valor inteiro
-;cmp eax, 1     ;comparando 1-1 = ?
-jz op1         ;salta se ? = 0 (ZF setada)
+jump_line
 
-add eax, 1
-cmp eax, 2
-jz op2
+mov eax, [cmd]
+cmp eax, 0x31
+jz option_1
 
-add eax, 2
-cmp eax, 3
-jz op3
+mov eax, [cmd]
+cmp eax, 0x32
+jz option_2
 
-add eax, 3
-cmp eax, 4
-jz op4
+mov eax, [cmd]
+cmp eax, 0x33
+jz option_3
 
-add eax, 4
-cmp eax, 5
-jz op5
+mov eax, [cmd]
+cmp eax, 0x34
+jz option_4
 
-add eax, 5
-cmp eax, 6
-jz return
+mov eax, [cmd]
+cmp eax, 0x35
+jz option_5
 
-;print msg3
+mov eax, [cmd]
+cmp eax, 0x36
+jz option_6
+
+;print not_a_choice
 mov eax, 4
 mov ebx, 1
-mov ecx, msg3
-mov edx, msg3size
+mov ecx, not_a_choice
+mov edx, not_a_choice_size
 int 0x80
-jmp menumsg
+jmp print_menu
 
-;FIM DO PROGRAMA
-return:
+option_6:
 mov eax, 1
-int 0X80
+int 0x80
 
-op1:
-call menumsg
+option_1:
+jmp print_menu
 
-op2:
-call menumsg
+option_2:
+jmp print_menu
 
-op3:
-call menumsg
+option_3:
+jmp print_menu
 
-op4:
-call menumsg
+option_4:
+jmp print_menu
 
-op5:
-call menumsg
+option_5:
+jmp print_menu
