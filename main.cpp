@@ -17,6 +17,10 @@ int main (int argc, char **argv){
 		if (aux == "asm"){
 			file_name.resize(file_name.find('.'));
 			pre_process(file_name);
+
+			//Aqui entra função para fazer montagem/ligação no caso de uma única entrada. Fazer função que entre nome do arquivo
+			//e a extensão .pre seja adicionada na hora de abrir (no montador.h)
+
 		}
 		else{
 			std::cout << "Extensão inválida\n";
@@ -33,6 +37,10 @@ int main (int argc, char **argv){
 			pre_process(file_name_1);
 			file_name_2.resize(file_name_2.find('.'));
 			pre_process(file_name_2);
+
+			//Aqui entra função para fazer montagem/ligação no caso de dois arquivos de entrada. Fazer função que entre nome do arquivo
+			//e a extensão .pre seja adicionada na hora de abrir (no montador.h)
+			//Observar também que deve ser verificado o argc para checar erro de BEGIN e END
 		}
 		else{
 			std::cout << "Extensão inválida\n";
