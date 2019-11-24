@@ -2,6 +2,7 @@ Ligador
 CiC - Software Básico
 
 Guilherme de Castro Ribeiro 14/0142151
+
 Victor Gabriel Rodrigues de Almeida 14/0052399
 
 Ligador: Na mesma pasta encontram-se arquivos de teste e headers utlizados
