@@ -12,8 +12,18 @@ mov edx, 2
 int 0x80
 %endmacro
 
+%macro cheguei 0
+mov eax, 4
+mov ebx, 1
+mov ecx, msg
+mov edx, msg_size
+int 0x80
+%endmacro
+
 section  .data
 endl db 0x0a, 0x0d
+msg db "Cheguei", 0x0a, 0x0d
+msg_size EQU $-msg
 
 ask_name db "Por favor, digite seu nome: "
 ask_name_size EQU $-ask_name
@@ -33,8 +43,14 @@ menu_choice_size EQU $-menu_choice
 not_a_choice db "Opção inválida, digite uma opção válida", 0x0a, 0x0d
 not_a_choice_size EQU $-not_a_choice
 
+ask_first_op db "Digite o primeiro operando: "
+ask_first_op_size EQU $-ask_first_op
+
+ask_second_op db "Digite o segundo operando: "
+ask_second_op_size EQU $-ask_second_op
+
 section .bss
-name resb 64
+name resb 32
 name_size EQU $-name
 num1 resb 4
 num2 resb 4
@@ -45,112 +61,78 @@ global _start:
 _start:
 jump_line
 
-;print ask_name
-mov eax, 4
-mov ebx, 1
 mov ecx, ask_name
 mov edx, ask_name_size
-int 0x80
+call print
 
-;read name
-mov eax, 3
-mov ebx, 0
 mov ecx, name
 mov edx, name_size
-int 0x80
+call read
 
 jump_line
 
-;print hello_part_1
-mov eax, 4
-mov ebx, 1
 mov ecx, hello_part_1
 mov edx, hello_part_1_size
-int 0x80
+call print
 
-;print name
-mov eax, 4
-mov ebx, 1
 mov ecx, name
-int 0x80
+mov edx, name_size
+call print
 
-;print hello_part_2
-mov eax, 4
-mov ebx, 1
 mov ecx, hello_part_2
 mov edx, hello_part_2_size
-int 0x80
+call print
 
 print_menu:
-mov eax, 4
-mov ebx, 1
 mov ecx, menu
 mov edx, menu_size
-int 0x80
+call print
 
-;print menu_choice
-mov eax, 4
-mov ebx, 1
 mov ecx, menu_choice
 mov edx, menu_choice_size
-int 0x80
+call print
 
-;read cmd
-mov eax, 3
-mov ebx, 0
 mov ecx, cmd
 mov edx, 1
-int 0x80
-
-jump_line
-
-mov eax, [cmd]
-cmp eax, 0x31
-jz option_1
-
-mov eax, [cmd]
-cmp eax, 0x32
-jz option_2
-
-mov eax, [cmd]
-cmp eax, 0x33
-jz option_3
-
-mov eax, [cmd]
-cmp eax, 0x34
-jz option_4
-
-mov eax, [cmd]
-cmp eax, 0x35
-jz option_5
+call read
 
 mov eax, [cmd]
 cmp eax, 0x36
-jz option_6
+je option_6
 
-;print not_a_choice
-mov eax, 4
-mov ebx, 1
-mov ecx, not_a_choice
-mov edx, not_a_choice_size
-int 0x80
-jmp print_menu
+mov ecx, ask_first_op
+mov edx, ask_first_op_size
+call print
+
+mov ecx, num1
+mov edx, 4
+call read
+
+jump_line
+
+mov ecx, ask_second_op
+mov edx, ask_second_op_size
+call print
+
+mov ecx, num2
+mov edx, 4
+call read
+
+jump_line
 
 option_6:
 mov eax, 1
+mov ebx, 0
 int 0x80
 
-option_1:
-jmp print_menu
+print:
+mov eax, 4
+mov ebx, 1
+int 0x80
+ret
 
-option_2:
-jmp print_menu
-
-option_3:
-jmp print_menu
-
-option_4:
-jmp print_menu
-
-option_5:
-jmp print_menu
+read:
+mov eax, 3
+mov ebx, 0
+int 0x80
+ret
