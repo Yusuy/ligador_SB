@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "estruturas.h"
 #include "pre_processador.h"
+#include "montador.h"
 
 //A função de ligação, provavelmente, é mais interessante receber um vetor com os nomes e o número de argumentos
 //já que deve trabalhar com os arquivos em conjunto
@@ -23,6 +24,10 @@ int main (int argc, char **argv){
 
 			//Aqui entra função para fazer montagem/ligação no caso de uma única entrada. Fazer função que entre nome do arquivo
 			//e a extensão .pre seja adicionada na hora de abrir (no montador.h)
+
+			std::vector<std::string> codes;
+			codes.push_back(file_name);
+			build(argc, codes);
 
 		}
 		else{
@@ -44,6 +49,12 @@ int main (int argc, char **argv){
 			//Aqui entra função para fazer montagem/ligação no caso de dois arquivos de entrada. Fazer função que entre nome do arquivo
 			//e a extensão .pre seja adicionada na hora de abrir (no montador.h)
 			//Observar também que deve ser verificado o argc para checar erro de BEGIN e END
+
+			std::vector<std::string> codes;
+			codes.push_back(file_name_1);
+			codes.push_back(file_name_2);
+			build(argc, codes);
+
 		}
 		else{
 			std::cout << "Extensão inválida\n";

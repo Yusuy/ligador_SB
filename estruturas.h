@@ -50,6 +50,7 @@ struct symbols_Table{
 struct build_structure{
 	std::string name;			//Nome do símbolo
 	std::string opcode; 	//Opcode
+	int is_extern;
 	int line;					//Endereço do símbolo
 	int address;						//Linha do símbolo
 	std::string section;		//Tipo de símbolo

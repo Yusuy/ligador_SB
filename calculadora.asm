@@ -50,10 +50,10 @@ ask_second_op db "Digite o segundo operando: "
 ask_second_op_size EQU $-ask_second_op
 
 section .bss
+first_op resb 4
+second_op resb 4
 name resb 32
 name_size EQU $-name
-num1 resb 4
-num2 resb 4
 cmd resb 1
 
 section .text
@@ -100,25 +100,12 @@ mov eax, [cmd]
 cmp eax, 0x36
 je option_6
 
-mov ecx, ask_first_op
-mov edx, ask_first_op_size
-call print
-
-mov ecx, num1
-mov edx, 4
-call read
-
 jump_line
+call read_ops
 
-mov ecx, ask_second_op
-mov edx, ask_second_op_size
-call print
-
-mov ecx, num2
-mov edx, 4
-call read
-
-jump_line
+mov eax, [cmd]
+cmp eax, 0x31
+je option_1
 
 option_6:
 mov eax, 1
@@ -136,3 +123,27 @@ mov eax, 3
 mov ebx, 0
 int 0x80
 ret
+
+read_ops:
+mov ecx, ask_first_op
+mov edx, ask_first_op_size
+call print
+
+mov ecx, name
+mov edx, name_size
+call read
+
+jump_line
+
+mov ecx, ask_second_op
+mov edx, ask_second_op_size
+call print
+
+mov ecx, second_op
+mov edx, 4
+call read
+ret
+
+option_1:
+cheguei
+jmp print_menu
