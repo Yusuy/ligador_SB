@@ -3,6 +3,18 @@
 ;nasm -f elf calculadora.asm
 ;ld -m elf_i386 -s -o calculadora calculadora.o
 ;./calculadora
+;ReadChar:
+;    enter 0,0
+;    pusha
+;    mov eax, 3
+;    mov ebx, 0
+;    mov ecx, [EBP+8] 
+;    mov edx, 1
+;    int 80h
+;    popa
+;    leave
+;    ret
+
 
 %macro jump_line 0
 mov eax, 4
