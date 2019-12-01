@@ -410,6 +410,7 @@ std::vector<std::string> hex_handler (std::vector<std::string> organized_program
 	int dec;
 	for (unsigned i = 0; i < organized_program.size(); i++) {
 		if(organized_program[i] == "CONST"){
+			output.push_back(organized_program[i]);
 			i++;
 			if(organized_program[i].find('X') != std::string::npos){
 				aux = organized_program[i].substr(organized_program[i].find('X')+1, organized_program[i].size());

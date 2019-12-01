@@ -1,29 +1,15 @@
 SECTION TEXT 
  INPUT B 
- COPY A , B 
- COPY G , H + 1 
- COPY 1 , X 
  INPUT H 
- INPUT XABLAU 
- COPY K + 1 ,  A + 12312 
  LOAD B 
- COPY A , B + 0 
  MULT H 
  DIV DOIS 
  STORE R 
  OUTPUT R 
- ADD B + 2 
- ADD H + 20 
- ADD R 
  STOP 
  SECTION DATA 
  B: SPACE 
  H: SPACE 
  R: SPACE 
- RAM: SPACE 
- DOIS: 2 
- G: SPACE 
- A: SPACE 
- X: SPACE 
- K: SPACE 
+ DOIS: CONST 2 
  
