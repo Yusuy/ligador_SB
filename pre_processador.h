@@ -481,7 +481,7 @@ void pre_process(std::string file_name){
 	file_generator(now_its_last_one, file_name);
 
 	//Imprime codigo original
-	//for(unsigned i=0; i<file.size();i++)
+//	for(unsigned i=0; i<file.size();i++)
 	//	std::cout << file[i] << ' ';
 
 	//Imprime codigo com diretivas tratadas
@@ -489,12 +489,12 @@ void pre_process(std::string file_name){
 	//	std::cout << file_pre_processed[i] << ' ';
 
 	//Imprime codigo com quebras de linha corrigidas
-	//for(unsigned i=0; i<file_organized.size();i++)
+//	for(unsigned i=0; i<file_organized.size();i++)
 	//	std::cout << file_organized[i] << ' ';
 
 	//Imprime codigo com quebras de linha corrigidas
-	for(unsigned i=0; i<program.size();i++)
-		std::cout << program[i] << ' ';
+	//for(unsigned i=0; i<program.size();i++)
+	//	std::cout << program[i] << ' ';
 
 	/*for(unsigned i=0; i<plus_separeted.size();i++)
 		std::cout << plus_separeted[i] << ' ';*/

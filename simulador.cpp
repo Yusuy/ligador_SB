@@ -61,14 +61,15 @@ int main (int argc, char **argv){
           break;
         case 5:
           printf("end. %u - JMP end.%d | ACC = %d\n", object[i].addr, object[i+1].opcode, acc);
-          i = object[i+1].opcode - 3;
+          i = object[i+1].opcode-2;
           i++;
+          //std::cout << "Pulei para " << i << "\n";
           //std::cin >> c;
           break;
         case 6:
           printf("end. %u - JMPN end.%d | ACC = %d\n", object[i].addr, object[i+1].opcode, acc);
           if (acc < 0) {
-            i = object[i+1].opcode - 3;
+            i = object[i+1].opcode - 2;
           };
           i++;
           //std::cin >> c;
@@ -76,7 +77,7 @@ int main (int argc, char **argv){
         case 7:
           printf("end. %u - JMPP end.%d | ACC = %d\n", object[i].addr, object[i+1].opcode, acc);
           if (acc > 0) {
-            i = object[i+1].opcode - 3;
+            i = object[i+1].opcode - 2;
           };
           i++;
           //std::cin >> c;
@@ -84,7 +85,7 @@ int main (int argc, char **argv){
         case 8:
           printf("end. %u - JMPZ end.%d | ACC = %d\n", object[i].addr, object[i+1].opcode, acc);
           if (acc == 0) {
-            i = object[i+1].opcode - 3;
+            i = object[i+1].opcode - 2;
           };
           i++;
           //std::cin >> c;
@@ -113,7 +114,7 @@ int main (int argc, char **argv){
           printf("Digite o valor de entrada: ");
           std::cin >> value;
           object[object[i+1].opcode].opcode = value;
-          printf("\nend. %u - INPUT %d (end.%d) | ACC = %d\n", object[i].addr, value, object[i+1].opcode, acc);
+          printf("end. %u - INPUT %d (end.%d) | ACC = %d\n", object[i].addr, value, object[i+1].opcode, acc);
           i++;
           break;
         case 13:
@@ -126,11 +127,6 @@ int main (int argc, char **argv){
             printf("end. %u - STOP\n", object[i].addr);
             i++;
             //std::cin >> c;
-            while(i<object.size()){
-              printf("end. %u - %d\n", object[i].addr, object[i].opcode);
-              //std::cin >> c;
-              i++;
-            };
             return 0;
       };
     };

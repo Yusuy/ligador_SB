@@ -100,14 +100,21 @@ void link_file_generator(std::vector<std::string> code, std::string file_name){
 std::string test_first(int argc, std::vector<std::string> argv){
 
 	std::string output;
+	std::locale loc;
   std::string aux_1 = argv[0];
   std::string aux_2 = argv[1];
   std::vector<std::string> program_1 = build_file_reader(aux_1);
   std::vector<std::string> program_2 = build_file_reader(aux_2);
 	std::string name_1 = aux_1.substr(aux_1.find(".")+1, aux_1.size());
 	name_1.append(":");
+	std::for_each(name_1.begin(), name_1.end(), [](char & c) {
+		c = ::toupper(c);
+	});
   std::string name_2 = aux_2.substr(aux_2.find(".")+1, aux_2.size());
 	name_2.append(":");
+	std::for_each(name_2.begin(), name_2.end(), [](char & d) {
+		d = ::toupper(d);
+	});
 
   for(unsigned i = 0; i<program_1.size(); i++){
     if(program_1[i] == name_2 && program_1[i+1] == "EXTERN"){
@@ -120,18 +127,29 @@ std::string test_first(int argc, std::vector<std::string> argv){
       output = name_2;
 		}
   }
+	//std::cout << "Retornei: " << output << "\n";
   return output;
 }
 
 std::vector<std::string> link_concat (std::vector<std::string> program_1, std::vector<std::string> program_2){
 
 	std::vector<std::string> aux;
+	std::vector<std::string> faux;
 
 	for(unsigned i = 0; i<program_1.size(); i++){
-		aux.push_back(program_1[i]);
+		faux.push_back(program_1[i]);
 	}
 	for(unsigned i = 0; i<program_2.size(); i++){
-		aux.push_back(program_2[i]);
+		faux.push_back(program_2[i]);
+	}
+
+	for(unsigned i = 0; i<faux.size(); i++){
+		if(faux[i]=="EXTERN"){
+			aux.resize(aux.size()-1);
+		}
+		else{
+			aux.push_back(faux[i]);
+		}
 	}
 
 	//for(unsigned i = 0; i<aux.size(); i++){
@@ -179,6 +197,9 @@ void link (int argc, std::vector<std::string> argv){
 		//std::cout << program_1[5];
 		std::string name_1 = aux_1_1.substr(aux_1_1.find(".")+1, aux_1_1.size());
 		name_1.append(":");
+		std::for_each(name_1.begin(), name_1.end(), [](char & c) {
+			c = ::toupper(c);
+		});
 		if(test == name_1){
 			std::vector<std::string> linked_program = link_concat(pre_1, pre_2);
 			link_file_generator(linked_program, argv[0].append(".linked"));
