@@ -57,4 +57,4 @@ Para execução:
 _________________________________________________________________________________________________
 Foi utilizada a seguinte versão do NASM nos testes:
 
-NASM version 2.12.01
+NASM version 2.11.08
