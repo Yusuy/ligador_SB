@@ -3,16 +3,19 @@ Ligador e Simulador Assembly --- Calculadora IA-32
 CiC - Software Básico
 
 Guilherme de Castro Ribeiro 14/0142151
+
 Victor Gabriel Rodrigues de Almeida 14/0052399
 ************************************************************************************************
 
 LIGADOR: Na mesma pasta encontram-se arquivos de teste e headers utlizados
 
 Para a compilação:
-  g++ main.cpp -o main
+
+        g++ main.cpp -o main
 
 Para execução do código:
-  ./main arg_1.asm arg_2.asm
+
+        ./main arg_1.asm arg_2.asm
 _________________________________________________________________________________________________
 Observações: Não é necessário a entrada de 2 arquivos para leitura, mas o programa trabalha apenas com 1 ou 2 arquivos de entrada. Mais de 2 arquivos podem ser colocados, mas apenas os 2 primeiros serão ligados.
 Ambos devem possuir a extensão ".asm", caso contrário será tratado como erro de extensão e não será feita a ligação.
@@ -22,10 +25,12 @@ ________________________________________________________________________________
 SIMULADOR: Na mesma pasta entrcontra-se um simulador para os arquivos ".linked" gerados no ligador
 
 Para a compilação:
-  g++ simulador.cpp -o simulador
+
+        g++ simulador.cpp -o simulador
 
 Para execução do código:
-  ./simulador arquivo.linked
+
+        ./simulador arquivo.linked
 
 
 _________________________________________________________________________________________________
@@ -41,11 +46,15 @@ ________________________________________________________________________________
 CALCULADORA: Na mesma pasta encontra-se, ainda, a calculadora IA-32
 
 Para a compilação:
-  nasm -f elf calculadora.asm
-  ld -m elf_i386 -s -o calculadora calculadora.o
+
+        nasm -f elf calculadora.asm
+
+        ld -m elf_i386 -s -o calculadora calculadora.o
 
 Para execução:
-  ./calculadora
+
+        ./calculadora
 _________________________________________________________________________________________________
 Foi utilizada a seguinte versão do NASM nos testes:
+
 NASM version 2.12.01
