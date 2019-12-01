@@ -20,7 +20,7 @@ int main (int argc, char **argv){
   for(i = 0; i < program.size(); i++) {
     if(validate(program[i]) == 1){
       aux = program[i];
-      std::cout << "Converter: " << aux << "\n";
+      //std::cout << "Converter: " << aux << "\n";
       aux_code.opcode = std::stoi(aux);
       aux_code.addr = i-1;
       object.push_back(aux_code);

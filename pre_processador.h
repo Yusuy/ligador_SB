@@ -260,18 +260,33 @@ std::vector<std::string> section_organizer(std::vector<std::string> program){
 	unsigned another_flag;
 	std::vector<std::string> aux;
 	unsigned i, j;
-
+	for(unsigned k = 0; k<program.size(); k++){
+		if(program[k] == "BEGIN"){
+			aux.push_back(program[k-1]);
+			aux.push_back(program[k]);
+			aux.push_back("\n");
+		}
+		if(program[k] == "EXTERN"){
+			aux.push_back(program[k-1]);
+			aux.push_back(program[k]);
+			aux.push_back("\n");
+		}
+	}
 	another_flag = 1;
 	i=0;
 	while (i < program.size()) {
 		if ((program[i] == "SECTION") && (program[i+1] == "TEXT") && (i+1 < program.size())) {
 			aux.push_back(program[i]);
-			aux.push_back(program[i+1]);
+			//std::cout << "Puxei: " << program[i] << "\n";
+			i++;
+			aux.push_back(program[i]);
+			//std::cout << "Puxei: " << program[i] << "\n";
 			flag = 0;
-			i+=2;
+			i++;
 
 			while (i+2 < program.size()) {
 				aux.push_back(program[i]);
+				//std::cout << "Puxei: " << program[i] << "\n";
 				i++;
 				if ((program[i+1] == "SECTION") && (program[i+2] == "DATA")) {
 					another_flag = 0;
@@ -280,7 +295,9 @@ std::vector<std::string> section_organizer(std::vector<std::string> program){
 			};
 			if (another_flag == 1) {
 				aux.push_back(program[i]);
+				//std::cout << "Puxei: " << program[i] << "\n";
 				aux.push_back(program[i+1]);
+				//std::cout << "Puxei: " << program[i] << "\n";
 			};
 		};
 
@@ -314,7 +331,7 @@ std::vector<std::string> section_organizer(std::vector<std::string> program){
 	};
 
 	if(flag == 1){
-		printf("\nERRO: Não há segmento de texto declarado.\n");
+		//printf("\nERRO: Não há segmento de texto declarado.\n");
 	};
 
 	return aux;
@@ -468,16 +485,16 @@ void pre_process(std::string file_name){
 	//	std::cout << file[i] << ' ';
 
 	//Imprime codigo com diretivas tratadas
-	/*for(unsigned i=0; i<file_pre_processed.size();i++)
-		std::cout << file_pre_processed[i] << ' ';*/
+	//for(unsigned i=0; i<file_pre_processed.size();i++)
+	//	std::cout << file_pre_processed[i] << ' ';
 
 	//Imprime codigo com quebras de linha corrigidas
-	/*for(unsigned i=0; i<file_organized.size();i++)
-		std::cout << file_organized[i] << ' ';*/
+	//for(unsigned i=0; i<file_organized.size();i++)
+	//	std::cout << file_organized[i] << ' ';
 
 	//Imprime codigo com quebras de linha corrigidas
-	/*for(unsigned i=0; i<program.size();i++)
-		std::cout << program[i] << ' ';*/
+	for(unsigned i=0; i<program.size();i++)
+		std::cout << program[i] << ' ';
 
 	/*for(unsigned i=0; i<plus_separeted.size();i++)
 		std::cout << plus_separeted[i] << ' ';*/

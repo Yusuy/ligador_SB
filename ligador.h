@@ -104,23 +104,21 @@ std::string test_first(int argc, std::vector<std::string> argv){
   std::string aux_2 = argv[1];
   std::vector<std::string> program_1 = build_file_reader(aux_1);
   std::vector<std::string> program_2 = build_file_reader(aux_2);
+	std::string name_1 = aux_1.substr(aux_1.find(".")+1, aux_1.size());
+	name_1.append(":");
+  std::string name_2 = aux_2.substr(aux_2.find(".")+1, aux_2.size());
+	name_2.append(":");
 
   for(unsigned i = 0; i<program_1.size(); i++){
-    if(program_1[i] == "BEGIN"){
-      output.append("0B");
-    }
-    if(program_1[i] == "END"){
-      output.append("E");
-    }
+    if(program_1[i] == name_2 && program_1[i+1] == "EXTERN"){
+      output = name_1;
+		}
   }
 
   for(unsigned i = 0; i<program_2.size(); i++){
-    if(program_2[i] == "BEGIN"){
-      output.append("1B");
-    }
-    else if(program_2[i] == "END"){
-      output.append("E");
-    }
+		if(program_2[i] == name_1 && program_2[i+1] == "EXTERN"){
+      output = name_2;
+		}
   }
   return output;
 }
@@ -136,9 +134,9 @@ std::vector<std::string> link_concat (std::vector<std::string> program_1, std::v
 		aux.push_back(program_2[i]);
 	}
 
-	for(unsigned i = 0; i<aux.size(); i++){
-		std::cout << aux[i] << " ";
-	}
+	//for(unsigned i = 0; i<aux.size(); i++){
+	//	std::cout << aux[i] << " ";
+	//}
 
 	std::vector<build_structure> table_general = get_symbols(aux);
 
@@ -164,7 +162,9 @@ void link (int argc, std::vector<std::string> argv){
     for(unsigned i = 11; i< program.size(); i++){
       output.push_back(program[i]);
     }
-    link_file_generator(output, argv[0].append(".linked"));
+		std::string file_name = argv[0];
+    link_file_generator(output, file_name.append(".linked"));
+		std::cout << "Arquivo ligado salvo com nome: " << file_name << "\n";
   }
 	//caso tenha 2 ou mais codigos, ele ligará os 2 primeiros
   else{
@@ -177,19 +177,17 @@ void link (int argc, std::vector<std::string> argv){
 		std::vector<std::string> pre_1 = build_file_reader(argv[0]);
 		std::vector<std::string> pre_2 = build_file_reader(argv[1]);
 		//std::cout << program_1[5];
-		if(test == "0BE"){
+		std::string name_1 = aux_1_1.substr(aux_1_1.find(".")+1, aux_1_1.size());
+		name_1.append(":");
+		if(test == name_1){
 			std::vector<std::string> linked_program = link_concat(pre_1, pre_2);
-			std::string file_name = argv[0].append("_");
-			file_name.append(argv[1]);
-			file_name.append(".linked");
-			link_file_generator(linked_program, file_name);
+			link_file_generator(linked_program, argv[0].append(".linked"));
+			std::cout << "Arquivo ligado salvo com nome: " << argv[0] << "\n";
 		}
 		else{
 			std::vector<std::string> linked_program = link_concat(pre_2, pre_1);
-			std::string file_name = argv[1].append("_");
-			file_name.append(argv[0]);
-			file_name.append(".linked");
-			link_file_generator(linked_program, file_name);
+			link_file_generator(linked_program, argv[1].append(".linked"));
+			std::cout << "Arquivo ligado salvo com nome: " << argv[1] << "\n";
 		}
   }
 
