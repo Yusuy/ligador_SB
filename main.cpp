@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include <sstream>
@@ -7,6 +8,7 @@
 #include "estruturas.h"
 #include "pre_processador.h"
 #include "montador.h"
+#include "ligador.h"
 
 //A função de ligação, provavelmente, é mais interessante receber um vetor com os nomes e o número de argumentos
 //já que deve trabalhar com os arquivos em conjunto
@@ -28,6 +30,7 @@ int main (int argc, char **argv){
 			std::vector<std::string> codes;
 			codes.push_back(file_name);
 			build(argc, codes);
+			link (argc, codes);
 
 		}
 		else{
@@ -54,6 +57,7 @@ int main (int argc, char **argv){
 			codes.push_back(file_name_1);
 			codes.push_back(file_name_2);
 			build(argc, codes);
+			link (argc, codes);
 
 		}
 		else{

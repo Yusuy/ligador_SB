@@ -107,11 +107,18 @@ std::vector<build_structure> get_symbols(std::vector<std::string> input_file_nam
         i++;
       }
     }
-    else if (input_file_name[i] == "STOP" || input_file_name[i] == "SPACE" || input_file_name[i] == "CONST") {
+    else if (input_file_name[i] == "STOP") {
       address+=1;
     }
     else if (input_file_name[i] == "CONST") {
       address+=1;
+    }
+    else if(input_file_name[i] == "SPACE"){
+      address+=1;
+      if(input_file_name[i+1] != "\n" && i<input_file_name.size()){
+        int a = stoi(input_file_name[i+1]);
+        address+=a-1;
+      }
     }
 
     if(input_file_name[i].back() == ':'){
@@ -451,6 +458,19 @@ std::vector<std::string> builder(std::vector<std::string> input_file_name, std::
       output.push_back("0");
       address++;
       bit_map.append("1");
+      if(input_file_name[i+1]!="\n" && i<input_file_name.size()){
+        i++;
+        int a = stoi(input_file_name[i]);
+        if(a>1){
+          //std::cout << "ENTREI "<< a << "\n";
+          address+= a;
+          //std::cout << "ENTREI "<< address << "\n";
+          for(unsigned z = 1; z<a; z++){
+            output.push_back("0");
+            bit_map.append("1");
+          }
+        }
+      }
     };
   }
 
@@ -529,13 +549,13 @@ void build (int argc, std::vector<std::string> program){
     file_generator_b(built, program[i]);
     table_generator(table_of_sym, program[i]);
 
-    for(unsigned i=0; i<built.size();i++)
-    		std::cout << built[i] << ' ';
+    //for(unsigned i=0; i<built.size();i++)
+    	//	std::cout << built[i] << ' ';
   }
   std::cout << '\n';
   if(argc == 2){
     if(c_begin[0] != 0){
-      std::cout << "ERRO SEMÂNTICO: BEGIN NÃO ESPERADO NA LINHA " << c_begin[0] << "\n";
+        std::cout << "ERRO SEMÂNTICO: BEGIN NÃO ESPERADO NA LINHA " << c_begin[0] << "\n";
     }
     if (c_begin[1] != 0) {
       std::cout << "ERRO SEMÂNTICO: BEGIN NÃO ESPERADO NA LINHA " << c_begin[1] << "\n";
@@ -548,9 +568,6 @@ void build (int argc, std::vector<std::string> program){
     };
   }
   else{
-    if((c_begin[0] != 0 || c_end[0] != 0) && (c_begin[1] != 0 || c_end[1] != 0)){
-      std::cout << "ERRO SEMÂNTICO: MÚLTIPLAS DECLARAÇÕES DE BEGIN E END" << "\n";
-    }
     if (c_begin[0] != 0 && c_end[0] == 0) {
       std::cout << "ERRO SEMÂNTICO: BEGIN SEM DECLARAÇÃO DE END EM " << "'" << program[0] << "' LINHA " << c_begin[0] << "\n";
     }
@@ -563,8 +580,11 @@ void build (int argc, std::vector<std::string> program){
     if (c_begin[1] == 0 && c_end[1] != 0) {
       std::cout << "ERRO SEMÂNTICO: END SEM DECLARAÇÃO DE BEGIN EM " << "'" << program[1] << "' LINHA " << c_end[1] << "\n";
     }
-    if((c_begin[0] == 0 && c_end[0] == 0) && (c_begin[1] == 0 && c_end[1] == 0)){
-      std::cout << "ERRO SEMÂNTICO: BEGIN E END NÃO DECLARADOS" << "\n";
+    if(c_begin[0] == 0 && c_end[0] == 0){
+      std::cout << "ERRO SEMÂNTICO: BEGIN E END NÃO DECLARADOS EM " << program[0] << "\n";
+    }
+    if(c_begin[1] == 0 && c_end[1] == 0){
+      std::cout << "ERRO SEMÂNTICO: BEGIN E END NÃO DECLARADOS EM " << program[1] << "\n";
     }
   }
 }
