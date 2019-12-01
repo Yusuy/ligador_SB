@@ -1,5 +1,5 @@
 SECTION text
-begin
+
 	INPUT		B
 	copy a,b
 	copy g,h+TRIANGULO
@@ -22,7 +22,6 @@ begin
 	add r
 	if zzz
 	stop
-	STOP
 SECTION DATA ;Teste de comentario
 ;gggggggg
 if xxx

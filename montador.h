@@ -529,13 +529,13 @@ void build (int argc, std::vector<std::string> program){
     file_generator_b(built, program[i]);
     table_generator(table_of_sym, program[i]);
 
-    for(unsigned i=0; i<built.size();i++)
-    		std::cout << built[i] << ' ';
+    //for(unsigned i=0; i<built.size();i++)
+    	//	std::cout << built[i] << ' ';
   }
   std::cout << '\n';
   if(argc == 2){
     if(c_begin[0] != 0){
-      std::cout << "ERRO SEMÂNTICO: BEGIN NÃO ESPERADO NA LINHA " << c_begin[0] << "\n";
+        std::cout << "ERRO SEMÂNTICO: BEGIN NÃO ESPERADO NA LINHA " << c_begin[0] << "\n";
     }
     if (c_begin[1] != 0) {
       std::cout << "ERRO SEMÂNTICO: BEGIN NÃO ESPERADO NA LINHA " << c_begin[1] << "\n";

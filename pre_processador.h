@@ -410,7 +410,6 @@ std::vector<std::string> hex_handler (std::vector<std::string> organized_program
 	int dec;
 	for (unsigned i = 0; i < organized_program.size(); i++) {
 		if(organized_program[i] == "CONST"){
-			output.push_back(organized_program[i]);
 			i++;
 			if(organized_program[i].find('X') != std::string::npos){
 				aux = organized_program[i].substr(organized_program[i].find('X')+1, organized_program[i].size());
@@ -450,7 +449,7 @@ void file_generator(std::vector<std::string> code, std::string file_name){
 void pre_process(std::string file_name){
 
 	std::vector<std::string> file = file_reader(file_name);				//Extensão do arquivo a ser lido é adicionado ao nome do arquivo
-	printf("\n");
+	//printf("Processando\n");
 
 	std::vector<std::string> file_pre_processed = directive_placer(file);
 	std::vector<std::string> file_organized = program_organizer(file_pre_processed);
@@ -464,8 +463,8 @@ void pre_process(std::string file_name){
 	file_generator(now_its_last_one, file_name);
 
 	//Imprime codigo original
-	/*for(unsigned i=0; i<file.size();i++)
-		std::cout << file[i] << ' ';*/
+	//for(unsigned i=0; i<file.size();i++)
+	//	std::cout << file[i] << ' ';
 
 	//Imprime codigo com diretivas tratadas
 	/*for(unsigned i=0; i<file_pre_processed.size();i++)
@@ -483,15 +482,15 @@ void pre_process(std::string file_name){
 		std::cout << plus_separeted[i] << ' ';*/
 
 	/*for(unsigned i=0; i<last_one_program.size();i++)
-		std::cout << last_one_program[i] << ' ';
+		std::cout << last_one_program[i] << ' ';*/
 
 
 	//Imprime codigo com tudo corrigido
-	/*for(unsigned i=0; i<spaced_program.size();i++)
-			std::cout << spaced_program[i] << ' ';*/
+	//for(unsigned i=0; i<spaced_program.size();i++)
+	//		std::cout << spaced_program[i] << ' ';
 
-	/*for(unsigned i=0; i<now_its_last_one.size();i++)
-			std::cout << now_its_last_one[i] << ' ';*/
+			//for(unsigned i=0; i<directives.size();i++)
+				//	std::cout << directives[i].symbol_label << ' ' << directives[i].symbol_name <<"\n";
 
 	//Contador de linhas
 	//program_counter(program);
